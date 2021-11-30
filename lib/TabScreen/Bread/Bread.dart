@@ -1,3 +1,4 @@
+import 'package:bdfoods/Details/DetailsPage.dart';
 import 'package:bdfoods/FoodData/Food_data.dart';
 import 'package:bdfoods/Grid_Tile/Coustom_Grid.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,10 @@ class Bread extends StatelessWidget {
         itemCount: BreadFood.length,
         itemBuilder: (BuildContext contex, int index) {
           return CoustomGrid(
+            onTap: () {
+              Navigator.pushNamed(context, DetailsPage.route,
+                  arguments: BreadFood[index]);
+            },
             imgUrl: BreadFood[index]["image"],
             Title: BreadFood[index]["title"],
             time: BreadFood[index]["Time"],

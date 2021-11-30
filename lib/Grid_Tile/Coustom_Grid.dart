@@ -9,8 +9,7 @@ class CoustomGrid extends StatelessWidget {
   final String? Category;
   final List? ingrident;
   final List? direction;
-
-  // final String? direction;
+  final VoidCallback? onTap;
 
   const CoustomGrid(
       {Key? key,
@@ -19,7 +18,8 @@ class CoustomGrid extends StatelessWidget {
       this.time,
       this.ingrident,
       this.Category,
-      this.direction})
+      this.direction,
+      this.onTap})
       : super(key: key);
 
   @override
@@ -27,18 +27,7 @@ class CoustomGrid extends StatelessWidget {
     final int ingList = ingrident!.length;
     final String imgs = imgUrl!;
     return InkWell(
-      onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return DetailsPage(
-            img: imgs,
-            titl: Title,
-            Ctgry: Category,
-            ingrdnt: ingrident,
-            directn: direction,
-          );
-        }));
-        print(imgs);
-      },
+      onTap: onTap,
       child: Card(
           elevation: 10,
           child: Column(

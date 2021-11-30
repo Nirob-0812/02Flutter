@@ -2,21 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DetailsPage extends StatelessWidget {
-  final String? img;
-  final String? titl;
-  final String? Ctgry;
-  final List? ingrdnt;
-  final List? directn;
-
-  const DetailsPage(
-      {Key? key, this.img, this.titl, this.Ctgry, this.ingrdnt, this.directn})
-      : super(key: key);
+  static const route = "Detals";
 
   @override
   Widget build(BuildContext context) {
-    final String imagess = img.toString();
-    final List? get_ingredient = ingrdnt;
-    final List? get_direction = directn;
+    final Map DetailsData = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
@@ -31,115 +21,182 @@ class DetailsPage extends StatelessWidget {
             child: Container(
               alignment: Alignment.topLeft,
               child: Text(
-                "Cetagory: $Ctgry",
+                "Cetagory: ${DetailsData["Category"]}",
                 style: TextStyle(fontSize: 22, color: Colors.white),
               ),
             ),
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(
-                  imagess,
+      body: Center(
+        child: Column(
+          children: [
+            Stack(
+              fit: StackFit.loose,
+              children: [
+                Image.asset(
+                  DetailsData["image"],
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "$titl",
-                  style: TextStyle(fontSize: 30, color: Colors.blueAccent),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  height: 50,
-                  child: Text(
-                    "Ingredient: ",
-                    style: TextStyle(
-                      color: Colors.deepOrangeAccent,
-                      fontSize: 28,
+                Positioned(
+                  bottom: 0,
+                  child: Container(
+                    color: Colors.black.withOpacity(0.25),
+                    height: 50,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: Text(
+                        "${DetailsData["title"]}",
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Material(
+                    color: Colors.orange,
+                    child: InkWell(
+                      onTap: () {},
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.check,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                          Text(
+                            "Cooked",
+                            style: TextStyle(fontSize: 25, color: Colors.white),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Container(
-                height: 2,
-                color: Colors.deepOrangeAccent,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Card(
-                elevation: 10,
-                child: Container(
-                  height: 300,
-                  child: ListView.builder(
-                      itemCount: get_ingredient!.length,
-                      itemBuilder: (contex, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("${index + 1}) " + get_ingredient[index]),
-                        );
-                      }),
+                Expanded(
+                  child: Material(
+                    color: Colors.deepOrangeAccent,
+                    child: InkWell(
+                      onTap: () {},
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.favorite,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                          Text(
+                            "Favorite",
+                            style: TextStyle(fontSize: 25, color: Colors.white),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                alignment: Alignment.topLeft,
-                height: 50,
-                //decoration: BoxDecoration(
-                // boxShadow: [BoxShadow(blurRadius: 5,spreadRadius: 2)],
-                // borderRadius: BorderRadius.all(Radius.circular(2))),
+                Expanded(
+                  child: Material(
+                    color: Colors.red,
+                    child: InkWell(
+                      onTap: () {},
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.photo,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                          Text(
+                            "Photos",
+                            style: TextStyle(fontSize: 25, color: Colors.white),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Text(
-                    "Direction: ",
-                    style: TextStyle(
-                      color: Colors.deepOrangeAccent,
-                      fontSize: 28,
+                  padding: const EdgeInsets.only(left: 15),
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.topLeft,
+                          height: 40,
+                          child: Text(
+                            "Ingredient: ",
+                            style: TextStyle(
+                              color: Colors.deepOrangeAccent,
+                              fontSize: 28,
+                            ),
+                          ),
+                        ),
+                        Divider(
+                          thickness: 2,
+                          color: Colors.orange,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        for (int i = 0;
+                            i < DetailsData["ingredients"].length;
+                            i++)
+                          Row(
+                            children: [
+                              Text(
+                                  "${i + 1})  ${DetailsData["ingredients"][i]}"),
+                            ],
+                          ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          alignment: Alignment.topLeft,
+                          height: 40,
+                          child: Text(
+                            "Direction: ",
+                            style: TextStyle(
+                              color: Colors.deepOrangeAccent,
+                              fontSize: 28,
+                            ),
+                          ),
+                        ),
+                        Divider(
+                          thickness: 2,
+                          color: Colors.orange,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        for (int i = 0;
+                            i < DetailsData["directions"].length;
+                            i++)
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                  child: Text(
+                                      "${i + 1})  ${DetailsData["directions"][i]}\n")),
+                            ],
+                          )
+                      ],
                     ),
                   ),
                 ),
               ),
-              Container(
-                height: 2,
-                color: Colors.deepOrangeAccent,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Card(
-                elevation: 10,
-                child: Container(
-                  height: 300,
-                  child: ListView.builder(
-                      itemCount: get_direction!.length,
-                      itemBuilder: (contex, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("${index + 1}) ${get_direction[index]}"),
-                        );
-                      }),
-                ),
-              ),
-              SizedBox(height: 30,)
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

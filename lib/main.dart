@@ -1,3 +1,4 @@
+import 'package:bdfoods/Details/DetailsPage.dart';
 import 'package:bdfoods/Grid_Tile/Coustom_Grid.dart';
 import 'package:bdfoods/HomePage/HomePage.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       routes: {
         "/":(context)=>HomePage(),
+        DetailsPage.route:(context)=>DetailsPage(),
       },
     );
   }
