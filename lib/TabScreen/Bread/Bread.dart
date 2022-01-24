@@ -4,10 +4,10 @@ import 'package:bdfoods/Grid_Tile/Coustom_Grid.dart';
 import 'package:flutter/material.dart';
 
 class Bread extends StatelessWidget {
-  List BreadFood = Bdfoods["bread"];
 
   @override
   Widget build(BuildContext context) {
+    List BreadFood = Bdfoods["bread"];
     return GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisSpacing: 5, mainAxisSpacing: 5, crossAxisCount: 2),

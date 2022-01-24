@@ -1,28 +1,45 @@
+import 'package:bdfoods/TabScreen/Video_Play/Video_Play.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 
 class DetailsPage extends StatelessWidget {
   static const route = "Detals";
+
+  void shareData(Map details) {
+    Share.share("${details["youtubeUrl"]}");
+  }
 
   @override
   Widget build(BuildContext context) {
     final Map DetailsData = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              shareData(DetailsData);
+            },
+            icon: Icon(Icons.share, size: 30),
+          ),
+          SizedBox(
+            width: 10,
+          )
+        ],
         backgroundColor: Colors.red,
         title: Text(
           "Details",
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(40),
+          preferredSize: Size.fromHeight(20),
           child: Padding(
             padding: const EdgeInsets.only(bottom: 20, left: 70),
             child: Container(
               alignment: Alignment.topLeft,
               child: Text(
                 "Cetagory: ${DetailsData["Category"]}",
-                style: TextStyle(fontSize: 22, color: Colors.white),
+                style: TextStyle(fontSize: 17, color: Colors.white),
               ),
             ),
           ),
@@ -102,16 +119,24 @@ class DetailsPage extends StatelessWidget {
                   child: Material(
                     color: Colors.red,
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          return Video_Play(
+                            title: DetailsData["title"],
+                            VideoUrl: DetailsData["youtubeUrl"],
+                          );
+                        }));
+                      },
                       child: Column(
                         children: [
                           Icon(
-                            Icons.photo,
+                            Icons.movie,
                             color: Colors.white,
                             size: 30,
                           ),
                           Text(
-                            "Photos",
+                            "Videos",
                             style: TextStyle(fontSize: 25, color: Colors.white),
                           )
                         ],
@@ -189,7 +214,22 @@ class DetailsPage extends StatelessWidget {
                                   child: Text(
                                       "${i + 1})  ${DetailsData["directions"][i]}\n")),
                             ],
-                          )
+                          ),
+                        // Container(
+                        //   alignment: Alignment.topLeft,
+                        //   height: 40,
+                        //   child: (
+                        //     "Watch on Youtube: ${DetailsData["youtubeUrl"]}",
+                        //     style: TextStyle(
+                        //       color: Colors.deepOrangeAccent,
+                        //       fontSize: 28,
+                        //     ),
+                        //   ),
+                        // ),
+                        // Divider(
+                        //   thickness: 2,
+                        //   color: Colors.orange,
+                        // ),
                       ],
                     ),
                   ),

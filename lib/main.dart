@@ -1,12 +1,10 @@
 import 'package:bdfoods/Details/DetailsPage.dart';
-import 'package:bdfoods/Grid_Tile/Coustom_Grid.dart';
 import 'package:bdfoods/HomePage/HomePage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
